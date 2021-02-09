@@ -1,0 +1,145 @@
+
+
+
+  html, body {
+  /* padding: 3; */
+  margin-left: 3%;
+  margin-right: 3%;
+}
+body {
+  color: #325050;
+  background: ivory;
+  font-size: 100%;
+  margin: 20px;
+}
+aside {
+  width: 20%;
+  height: 100%;
+  padding-left: 15px;
+  margin-left: 15px;
+  float: right;
+  background-color: ivory;
+  font-family: fantasy;
+  font-style: normal;
+
+}
+
+fieldset {
+  font-size: 25px;
+  display: contents;
+  margin-left: 2px;
+  margin-right: 2px;
+  border: 2px groove (internal value);
+}
+
+h1 {
+  text-align: center;
+  color: red;
+  background: black;
+}
+
+caption {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+/* TABLE */
+table {
+font-family: fantasy;
+border-collapse: collapse;
+font-size: 20px;
+width: 50%;
+margin-left: auto;
+margin-right: auto;
+}
+
+td, th {
+border: 2px solid #dddddd;
+border-color: silver;
+text-align: left;
+padding: 3px;
+width: auto;
+}
+
+tr:nth-child(even) {
+background-color: #dddddd;
+}
+
+.container-fluid {
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: silver;
+  background: white;
+  /* color: black; */
+  font-weight: bold;
+}
+
+.container {
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+
+.col-md-10 {
+  /* border: 2px solid; */
+  width: auto;
+}
+
+.row {
+  font-family: fantasy;
+  border-radius: 5px;
+  transition: transform .2s;
+  /* width: auto;
+  height: auto;
+  margin: 0 auto; */
+}
+.row:hover {
+  background-color: transparent;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  transform: translate(35%,0%) scale(1.6);
+  border: 2px solid;
+  width: auto;
+  }
+
+.button {
+  width: 60%;
+  background-color: wheat;
+  border: 2px solid;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  border-color: lightgray;
+}
+.button:hover {
+  background-color: lightgray;
+  color: white;
+}
+
+.button2 {
+  width: auto;
+  background-color: wheat;
+  text-align: center;
+  border-radius: 5px;
+  color: black;
+  font-size: 18px;
+  border: 2px solid;
+  cursor: pointer;
+  border-color: lightgray;
+
+}
+.button2:hover {
+  background-color: lightgray;
+  color: white;
+}
+
+.insdel {
+  width: auto;
+  border-radius: 5px;
+  font-size: 18px;
+  border-color: lightgray;
+}
