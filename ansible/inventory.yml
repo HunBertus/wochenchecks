@@ -1,0 +1,21 @@
+---
+all:
+  vars:
+    domain_name: "{{ ansible_facts.domain }}"
+    hostname: "{{ ansible_facts.hostname }}"
+  children:
+    servers:
+      vars:
+        domain_name: teccons.lan
+      hosts:
+        ansible-server:
+          hostname: wochenchecks
+          ansible_host: 10.0.200.10
+          ansible_port: 22
+          ansible_user: vagrant
+#          ansible_ssh_pass: vagrant
+#          ansible_become: true
+#          ansible_become_user: root
+#          ansible_become_password: vagrant
+#          ansible_ssh_private_key_file: /home/vagrant/.ssh/id_rsa
+
