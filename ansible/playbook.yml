@@ -1,0 +1,202 @@
+---
+#-------------------------------------------------------------------------------
+# HANDLERS
+
+- name: Handlers
+  hosts: servers
+  become: true
+  tasks:
+    - name: Postgres12 is running?
+      shell: service postgresql.service status warn=false
+      register: _postgres12
+      ignore_errors: true
+
+- name: Replace files
+  hosts: servers
+  tasks:
+    - name: Replace motd
+      become: true
+      copy:
+        content: "This system is managed by Ansible"
+        dest: /etc/motd
+        owner: "root"
+        group: "root"
+        mode: "0664"
+
+    - name: Replace hosts
+      become: true
+      template:
+        src: hosts.j2
+        dest: /etc/hosts
+        owner: "root"
+        group: "root"
+        mode: "0664"
+
+- name: Configure the host
+  hosts: servers
+  tasks:
+    - name: Set the hostname
+      become: true
+      hostname:
+        name: "{{ hostname }}"
+    - name: Set the domain name
+      become: true
+      command: "domainname {{ domain_name }}"
+      when: ansible_facts.domain != domain_name
+#---------------------------------------------------------
+#Installing Packages
+
+- name: Installing packages
+  hosts: servers
+  become: true
+  tasks:
+    - name: httpd
+      dnf:
+        name: httpd
+        state: present
+
+    - name: php7.4
+      dnf:
+        name: "{{ pack }}"
+        state: present
+      vars:
+        pack:
+        - '@php:7.4'
+        - php-pgsql  
+
+    - name: postgres12
+      dnf:
+        name: 
+          - '@postgresql:12'
+          - postgresql-server
+        state: present
+    
+    - name: psycopg2
+      dnf:
+        name: python3-psycopg2
+        state: present
+
+    - name: git
+      dnf:
+        name: git
+        state: present
+
+#-----------------------------------------------------------------------------------------
+# Enabling services
+
+- name: Enabling services
+  become: true
+  hosts: servers
+  tasks:
+    - name: httpd enabling
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: php enabling
+      service:
+        name: php-fpm
+        state: started
+        enabled: yes
+
+    - name: postgres initdb
+      command: >
+        postgresql-setup initdb
+      when: "_postgres12.rc != 0"
+     
+    - name: postgresql enabling
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
+ 
+# -----------------------------------------------------------------------------------------
+# Setting SELinux-Mode to permissive and stopping firewalld
+
+- name: SeLinux and Firewalld
+  become: true
+  hosts: servers
+  tasks:
+    - name: Setting mode to Permissive
+      command: setenforce Permissive
+
+    - name: Stopping firewalld.
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no
+
+#-------------------------------------------------------------------------------------------
+#Cloneing files from git
+
+- name: Cloning wochenchecks and setting dir permissions
+  become: true
+  hosts: servers
+  tasks:
+    - name: Cloning from git
+      git:
+        repo: https://github.com/HunBertus/wochechecks.git
+        dest: /var/www/html
+
+
+#--------------------------------------------------------------------------------------------
+# Setting up DB and DB user
+
+- name: Cloning wochenchecks and setting dir permissions
+  become: true
+  hosts: servers
+  tasks:
+    - name: Grant permissions for user 
+      postgresql_pg_hba:
+        dest: "/var/lib/pgsql/data/pg_hba.conf"
+        contype: local
+        users: all
+        source: 127.0.0.1/32
+        databases: all
+        method: trust
+
+    - name: Grant permissions for user
+      postgresql_pg_hba:
+        dest: "/var/lib/pgsql/data/pg_hba.conf"
+        contype: host
+        users: all
+        source: 127.0.0.1/32
+        databases: all
+        method: trust
+
+    - name: postgresql restart
+      service:
+        name: postgresql
+        state: restarted
+
+    - name: Create DB user
+      postgresql_user:
+        name: sami
+        password: 'sami123'
+        role_attr_flags: LOGIN,SUPERUSER
+
+    - name: Create the wochenchecks DB
+      postgresql_db:
+        name: wochencheks
+
+    - name: Creating db user for os
+      user:
+        name: sami
+        
+    - name: Restoring db from dump
+      shell: "psql -d wochencheks < /var/www/html/wc.dump"
+      args:
+        executable: /bin/bash
+      become: true
+      become_user: sami     
+
+# -------------------------------------------------------------------------------------------
+# Setting dir permissions
+    - name: setting /var/www/html permissons
+      file:
+        path: "/var/www"
+        owner: apache
+        group: apache
+        recurse: true
+
