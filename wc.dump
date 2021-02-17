@@ -57,6 +57,18 @@ CREATE TABLE public.checks_6 (
 ALTER TABLE public.checks_6 OWNER TO sami;
 
 --
+-- Name: checks_7; Type: TABLE; Schema: public; Owner: sami
+--
+
+CREATE TABLE public.checks_7 (
+    wer character varying(50),
+    kund character varying(50)
+);
+
+
+ALTER TABLE public.checks_7 OWNER TO sami;
+
+--
 -- Name: kunden; Type: TABLE; Schema: public; Owner: sami
 --
 
@@ -193,6 +205,25 @@ Gernot	Knapp
 
 
 --
+-- Data for Name: checks_7; Type: TABLE DATA; Schema: public; Owner: sami
+--
+
+COPY public.checks_7 (wer, kund) FROM stdin;
+Gernot	Gemue
+Gernot	Leithaeusl
+Szabi	Lindpointner
+Marko	IV
+Marko	IsoSport
+Szabi	TannPapier
+Gerhard	Com-One
+Gerhard	Croma
+Gerhard	Knapp
+Benny	AME
+Benny	Julius_Meinl
+\.
+
+
+--
 -- Data for Name: kunden; Type: TABLE DATA; Schema: public; Owner: sami
 --
 
@@ -208,6 +239,9 @@ COPY public.kunden (kunden_id, kunde) FROM stdin;
 9	Leithaeusl
 10	Lindpointner
 11	TannPapier
+12	Energie_AG-E
+13	Energie_AG-Q
+14	Energie_AG-P
 \.
 
 
@@ -232,6 +266,7 @@ COPY public.users (user_id, username, last_login) FROM stdin;
 COPY public.wochen (kw) FROM stdin;
 5
 6
+7
 \.
 
 
@@ -239,7 +274,7 @@ COPY public.wochen (kw) FROM stdin;
 -- Name: kunden_kunden_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sami
 --
 
-SELECT pg_catalog.setval('public.kunden_kunden_id_seq', 11, true);
+SELECT pg_catalog.setval('public.kunden_kunden_id_seq', 14, true);
 
 
 --
