@@ -69,6 +69,30 @@ CREATE TABLE public.checks_7 (
 ALTER TABLE public.checks_7 OWNER TO sami;
 
 --
+-- Name: checks_8; Type: TABLE; Schema: public; Owner: sami
+--
+
+CREATE TABLE public.checks_8 (
+    wer character varying(50),
+    kund character varying(50)
+);
+
+
+ALTER TABLE public.checks_8 OWNER TO sami;
+
+--
+-- Name: checks_9; Type: TABLE; Schema: public; Owner: sami
+--
+
+CREATE TABLE public.checks_9 (
+    wer character varying(50),
+    kund character varying(50)
+);
+
+
+ALTER TABLE public.checks_9 OWNER TO sami;
+
+--
 -- Name: kunden; Type: TABLE; Schema: public; Owner: sami
 --
 
@@ -224,6 +248,44 @@ Benny	Julius_Meinl
 
 
 --
+-- Data for Name: checks_8; Type: TABLE DATA; Schema: public; Owner: sami
+--
+
+COPY public.checks_8 (wer, kund) FROM stdin;
+Gerhard	AME
+Gerhard	Com-One
+Gerhard	Leithaeusl
+Michael	Croma
+Marko	Gemue
+Marko	IV
+Marko	Lindpointner
+Szabi	IsoSport
+Szabi	Julius_Meinl
+Szabi	TannPapier
+Benny	Knapp
+\.
+
+
+--
+-- Data for Name: checks_9; Type: TABLE DATA; Schema: public; Owner: sami
+--
+
+COPY public.checks_9 (wer, kund) FROM stdin;
+Szabi	AME
+Szabi	IV
+Szabi	Croma
+Gerhard	Com-One
+Gerhard	Gemue
+Gerhard	IsoSport
+Gerhard	Knapp
+Marko	Lindpointner
+Marko	Leithaeusl
+Marko	TannPapier
+Marko	Julius_Meinl
+\.
+
+
+--
 -- Data for Name: kunden; Type: TABLE DATA; Schema: public; Owner: sami
 --
 
@@ -267,6 +329,8 @@ COPY public.wochen (kw) FROM stdin;
 5
 6
 7
+8
+9
 \.
 
 
