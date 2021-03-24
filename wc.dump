@@ -33,6 +33,42 @@ CREATE TABLE public.checks (
 ALTER TABLE public.checks OWNER TO sami;
 
 --
+-- Name: checks_10; Type: TABLE; Schema: public; Owner: sami
+--
+
+CREATE TABLE public.checks_10 (
+    wer character varying(50),
+    kund character varying(50)
+);
+
+
+ALTER TABLE public.checks_10 OWNER TO sami;
+
+--
+-- Name: checks_11; Type: TABLE; Schema: public; Owner: sami
+--
+
+CREATE TABLE public.checks_11 (
+    wer character varying(50),
+    kund character varying(50)
+);
+
+
+ALTER TABLE public.checks_11 OWNER TO sami;
+
+--
+-- Name: checks_12; Type: TABLE; Schema: public; Owner: sami
+--
+
+CREATE TABLE public.checks_12 (
+    wer character varying(50),
+    kund character varying(50)
+);
+
+
+ALTER TABLE public.checks_12 OWNER TO sami;
+
+--
 -- Name: checks_5; Type: TABLE; Schema: public; Owner: sami
 --
 
@@ -195,6 +231,63 @@ COPY public.checks (wer, kund) FROM stdin;
 
 
 --
+-- Data for Name: checks_10; Type: TABLE DATA; Schema: public; Owner: sami
+--
+
+COPY public.checks_10 (wer, kund) FROM stdin;
+Szabi	AME
+Szabi	Com-One
+Szabi	IsoSport
+Gerhard	IV
+Gerhard	Lindpointner
+Gerhard	Leithaeusl
+Gerhard	TannPapier
+Gerhard	Gemue
+Marko	Croma
+Marko	Julius_Meinl
+Marko	Knapp
+\.
+
+
+--
+-- Data for Name: checks_11; Type: TABLE DATA; Schema: public; Owner: sami
+--
+
+COPY public.checks_11 (wer, kund) FROM stdin;
+Szabi	Gemue
+Szabi	Leithaeusl
+Szabi	IV
+Gerhard	Lindpointner
+Gerhard	Com-One
+Gerhard	TannPapier
+Marko	IsoSport
+Marko	Julius_Meinl
+Michael	AME
+Benny	Croma
+Gerhard	Knapp
+\.
+
+
+--
+-- Data for Name: checks_12; Type: TABLE DATA; Schema: public; Owner: sami
+--
+
+COPY public.checks_12 (wer, kund) FROM stdin;
+Michael	AME
+Gerhard	Com-One
+Gerhard	IV
+Gerhard	Leithaeusl
+Gerhard	TannPapier
+Marko	Julius_Meinl
+Marko	Croma
+Marko	Gemue
+Marko	IsoSport
+Marko	Lindpointner
+	Knapp
+\.
+
+
+--
 -- Data for Name: checks_5; Type: TABLE DATA; Schema: public; Owner: sami
 --
 
@@ -331,6 +424,9 @@ COPY public.wochen (kw) FROM stdin;
 7
 8
 9
+10
+11
+12
 \.
 
 
