@@ -8,6 +8,8 @@ if(!isset($_SESSION['uname'])){
 $_SESSION['kw'] = (int)date("W");
 #$_SESSION['kw'] = 5;
 $kw = $_SESSION['kw'];
+$letzte_woche = ($kw - 1);
+#echo $letzte_woche;
 
 $uname = $_SESSION['uname'];
 
@@ -34,19 +36,21 @@ $result_to_delete_list = pg_query($dbconn, $query_to_delete_list) or die ("Canno
 #QUERIES
 $query_benny = "select kund from checks_$kw where wer = 'Benny' order by kund asc";
 $query_gerhard = "select kund from checks_$kw where wer = 'Gerhard' order by kund asc";
-$query_gernot = "select kund from checks_$kw where wer = 'Gernot' order by kund asc";
+#$query_gernot = "select kund from checks_$kw where wer = 'Gernot' order by kund asc";
 $query_marko = "select kund from checks_$kw where wer = 'Marko' order by kund asc";
 $query_michael = "select kund from checks_$kw where wer = 'Michael' order by kund asc";
 $query_szabi = "select kund from checks_$kw where wer = 'Szabi' order by kund asc";
 $query_nicht_gewahlt = "select kunde from kunden full outer join checks_$kw on kunden.kunde = checks_$kw.kund where checks_$kw.wer is null order by kunde asc";
+$query_letzte_woche = "select kund from checks_$letzte_woche where wer = '$uname'";
 #RESULTS
 $result_benny = pg_query($dbconn, $query_benny) or die ("Cannot execute query_benny");
 $result_gerhard = pg_query($dbconn, $query_gerhard) or die ("Cannot execute query_gerhard");
-$result_gernot = pg_query($dbconn, $query_gernot) or die ("Cannot execute query_gernot");
+#$result_gernot = pg_query($dbconn, $query_gernot) or die ("Cannot execute query_gernot");
 $result_marko = pg_query($dbconn, $query_marko) or die ("Cannot execute query_marko");
 $result_michael = pg_query($dbconn, $query_michael) or die ("Cannot execute query_michael");
 $result_szabi = pg_query($dbconn, $query_szabi) or die ("Cannot execute query_szabi");
 $result_nicht_gewahlt = pg_query($dbconn, $query_nicht_gewahlt) or die ("Cannot execute query_nicht_gewahlt");
+$result_letzte_woche = pg_query($dbconn, $query_letzte_woche) or die ("Cannot execute query_letzte_woche");
 
 # FUNCTIONS=====================================================================
 #
@@ -200,7 +204,7 @@ if(isset($_POST['logout'])){
    <!-- INSERT -->
    <form method="post">
     <fieldset>
-      <input list="ins_kunde" name="ins_kunde" placeholder="Kunde du checken möchtest" class="insdel" required>
+      <input list="ins_kunde" name="ins_kunde" placeholder="Kunde zu checken " class="insdel" required>
        <datalist id="ins_kunde">
         <?php
              while ($row = pg_fetch_assoc($result_kunden_list))
@@ -216,7 +220,7 @@ if(isset($_POST['logout'])){
   <!-- DELETE -->
   <form method="post">
    <fieldset>
-       <input type="text" list="del_kunde" name="del_kunde" placeholder="Kunde du löschen möchtest" class="insdel" required>
+       <input type="text" list="del_kunde" name="del_kunde" placeholder="Kunde zu löschen " class="insdel" required>
          <datalist id="del_kunde">
           <?php
                while ($row1 = pg_fetch_assoc($query_to_delete_list))
@@ -279,6 +283,7 @@ if(isset($_POST['logout'])){
    </fieldset>
   </div>
 <!-- ====================GERNOT================================================= -->
+<!--
   <br>
     <div class="row">
       <fieldset>Gernot:
@@ -290,6 +295,7 @@ if(isset($_POST['logout'])){
         ?>
      </fieldset>
     </div>
+-->
 <!-- ====================MARKO================================================== -->
   <br>
    <div class="row">
@@ -313,7 +319,7 @@ if(isset($_POST['logout'])){
               }
         ?>
      </fieldset>
-    </div>
+   </div>
 <!-- ====================SZABI================================================== -->
   <br>
    <div class="row">
@@ -326,8 +332,8 @@ if(isset($_POST['logout'])){
         ?>
      </fieldset>
     </div>
-    </div>
-    </div>
+   </div>
+  </div>
 <!-- ====================NOCH NICHT GEWÄHLT===================================== -->
   <br>
     <div class="container">
@@ -342,5 +348,19 @@ if(isset($_POST['logout'])){
        </fieldset>
      </div> 
     </div> 
+<!-- ====================LETZTE WOCHE===================================== -->
+  <br>
+    <div class="container">
+     <div class="col-md-10">
+      <fieldset><strong>Letzte Woche gecheckt:</strong>
+       <?php
+             while ($row = pg_fetch_assoc($result_letzte_woche))
+              {
+                echo $row['kund'].", ";
+              }
+        ?>
+       </fieldset>
+     </div>
+    </div>
   </body>
  </html>

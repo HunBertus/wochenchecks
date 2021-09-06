@@ -30,7 +30,7 @@ $dbconn = pg_connect($connection) or die ("Can not connect to server\n");
 #QUERIES
 $query_benny = "select kund from checks_$kw where wer = 'Benny' order by kund asc";
 $query_gerhard = "select kund from checks_$kw where wer = 'Gerhard' order by kund asc";
-$query_gernot = "select kund from checks_$kw where wer = 'Gernot' order by kund asc";
+#$query_gernot = "select kund from checks_$kw where wer = 'Gernot' order by kund asc";
 $query_marko = "select kund from checks_$kw where wer = 'Marko' order by kund asc";
 $query_michael = "select kund from checks_$kw where wer = 'Michael' order by kund asc";
 $query_szabi = "select kund from checks_$kw where wer = 'Szabi' order by kund asc";
@@ -38,7 +38,7 @@ $query_nicht_gewahlt = "select kunde from kunden full outer join checks_$kw on k
 #RESULTS
 $result_benny = pg_query($dbconn, $query_benny) or die ("Cannot execute query_benny");
 $result_gerhard = pg_query($dbconn, $query_gerhard) or die ("Cannot execute query_gerhard");
-$result_gernot = pg_query($dbconn, $query_gernot) or die ("Cannot execute query_gernot");
+#$result_gernot = pg_query($dbconn, $query_gernot) or die ("Cannot execute query_gernot");
 $result_marko = pg_query($dbconn, $query_marko) or die ("Cannot execute query_marko");
 $result_michael = pg_query($dbconn, $query_michael) or die ("Cannot execute query_michael");
 $result_szabi = pg_query($dbconn, $query_szabi) or die ("Cannot execute query_szabi");
@@ -91,8 +91,8 @@ if(isset($_POST['login'])){
   <table>
    <caption><strong>Zusammenfassung Wochencheck KW<?php echo date("W");  ?></strong></caption>
     <tr>
-     <th>Checker</th>
-     <th>Kunde</th>
+     <th class="" style="text-align: center">Checker</th>
+     <th class="" style="text-align: center">Kunde</th>
     </tr>
     <tr>
      <td>Benny</td>
@@ -108,6 +108,7 @@ if(isset($_POST['login'])){
        echo $row['kund'].", ";
      } ?></td>
     </tr>
+    <!--
     <tr>
      <td>Gernot</td>
      <td><?php while ($row = pg_fetch_assoc($result_gernot))
@@ -115,6 +116,7 @@ if(isset($_POST['login'])){
        echo $row['kund'].", ";
      } ?></td>
     </tr>
+    -->
     <tr>
      <td>Marko</td>
      <td><?php while ($row = pg_fetch_assoc($result_marko))
